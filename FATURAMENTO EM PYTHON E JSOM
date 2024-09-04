@@ -1,0 +1,31 @@
+# Dado um vetor que guarda o valor de faturamento diário de uma distribuidora, faça um programa, na linguagem que desejar, que calcule e retorne
+import json
+
+# Dados de faturamento diário da distribuidora (em JSON)
+faturamento_diario_json = '''
+{
+    "faturamento": [0, 100, 15, 50, 30, 0, 15, 20, 300, 0, 150, 0, 400, 200, 0, 0, 0, 500, 100, 50, 600, 700, 0, 0, 0, 50, 20, 100, 850, 80]
+}
+'''
+
+# Carregar dados do JSON
+dados = json.loads(faturamento_diario_json)
+faturamento_diario = dados["faturamento"]
+
+# Filtrar apenas os dias com faturamento > 0 (ignorar dias com faturamento zero)
+dias_com_faturamento = [valor for valor in faturamento_diario if valor > 0]
+
+# Calcular o menor e maior valor de faturamento
+menor_faturamento = min(dias_com_faturamento)
+maior_faturamento = max(dias_com_faturamento)
+
+# Calcular a média mensal de faturamento (apenas dias com faturamento > 0)
+media_mensal = sum(dias_com_faturamento) / len(dias_com_faturamento)
+
+# Calcular o número de dias com faturamento superior à média mensal
+dias_acima_da_media = sum(1 for valor in dias_com_faturamento if valor > media_mensal)
+
+# Exibir os resultados
+print(f"Menor faturamento: {menor_faturamento}")
+print(f"Maior faturamento: {maior_faturamento}")
+print(f"Dias com faturamento acima da média: {dias_acima_da_media}")
